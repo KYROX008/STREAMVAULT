@@ -47,7 +47,51 @@
     }
 
     /* ============================================
-       ✦ CINEMATIC INTRO (video-style sequence)
+       ✦ AUDIO UNLOCK HINT (subtle)
+       ============================================ */
+    .audio-hint {
+      position: fixed;
+      bottom: 1.4rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000001;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      background: rgba(13, 9, 6, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--border-medium);
+      padding: 0.7rem 1.4rem;
+      border-radius: 100px;
+      font-size: 0.68rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--ivory-dim);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.6s var(--ease-out-expo), visibility 0.6s, transform 0.6s var(--ease-out-expo);
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .audio-hint.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+    .audio-hint i {
+      color: var(--amber);
+      font-size: 0.85rem;
+      animation: audioPulse 1.6s ease-in-out infinite;
+    }
+    @keyframes audioPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+    .audio-hint .audio-hint-text { color: var(--amber); font-weight: 700; }
+
+    /* ============================================
+       ✦ CINEMATIC INTRO
        ============================================ */
     .intro-gate {
       position: fixed;
@@ -63,7 +107,6 @@
       pointer-events: none;
     }
 
-    /* film grain + vignette overlay */
     .intro-gate::after {
       content: '';
       position: absolute;
@@ -81,7 +124,6 @@
       z-index: 4;
     }
 
-    /* letterbox bars (cinematic) */
     .cine-bar {
       position: absolute;
       left: 0; right: 0;
@@ -94,7 +136,6 @@
     .cine-bar.bottom { bottom: 0; }
     .intro-gate.expanding .cine-bar { height: 0; }
 
-    /* scene container */
     .intro-scenes {
       position: absolute;
       inset: 0;
@@ -129,7 +170,6 @@
       visibility: hidden;
     }
 
-    /* scene 1: particle burst emblem */
     .scene-emblem {
       position: relative;
       width: 160px;
@@ -203,7 +243,6 @@
       animation: fadeUpScene 1s var(--ease-out-expo) 2s forwards;
     }
 
-    /* scene 2: tagline sweep */
     .scene-tagline {
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-style: italic;
@@ -218,17 +257,7 @@
       font-style: italic;
       text-shadow: 0 0 50px rgba(230, 166, 97, 0.5);
     }
-    .scene-tagline .word {
-      display: inline-block;
-      opacity: 0;
-      transform: translateY(30px) rotateX(40deg);
-      animation: wordIn 0.7s var(--ease-out-expo) forwards;
-    }
-    @keyframes wordIn {
-      to { opacity: 1; transform: translateY(0) rotateX(0); }
-    }
 
-    /* scene 3: feature list reveal */
     .scene-features {
       display: flex;
       flex-direction: column;
@@ -273,7 +302,6 @@
       to { opacity: 1; transform: translateX(0); }
     }
 
-    /* scene 4: developer reveal */
     .scene-dev {
       display: flex;
       flex-direction: column;
@@ -331,7 +359,6 @@
       animation: fadeUpScene 0.9s var(--ease-out-expo) 0.9s forwards;
     }
 
-    /* scene 5: enter prompt */
     .scene-enter {
       display: flex;
       flex-direction: column;
@@ -393,7 +420,6 @@
       letter-spacing: 3px;
       text-transform: uppercase;
       color: var(--ivory-ghost);
-      animation: hintPulse 2s ease-in-out infinite;
       opacity: 0;
       animation: fadeUpScene 1s var(--ease-out-expo) 0.9s forwards, hintPulse 2s ease-in-out 2s infinite;
     }
@@ -407,7 +433,6 @@
       to { opacity: 1; transform: translateY(0); filter: blur(0); }
     }
 
-    /* intro progress bar + skip */
     .intro-progress-track {
       position: absolute;
       bottom: calc(8vh + 1.4rem);
@@ -480,9 +505,6 @@
     .dev-btn-instagram, .dev-btn-home,
     .nav-links a, .feature-card, .meta-item { cursor: pointer; }
 
-    /* ============================================
-       ✦ SCROLL PROGRESS BAR
-       ============================================ */
     .scroll-progress {
       position: fixed;
       top: 0; left: 0;
@@ -504,9 +526,6 @@
       opacity: 0.9;
     }
 
-    /* ============================================
-       ✦ AMBIENT BACKGROUND
-       ============================================ */
     body::before {
       content: "";
       position: fixed;
@@ -534,9 +553,6 @@
       opacity: 0.8;
     }
 
-    /* ============================================
-       ✦ FLOATING PARTICLES
-       ============================================ */
     .particle-field { position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
     .particle {
       position: absolute;
@@ -554,9 +570,6 @@
       100% { opacity: 0; transform: translateY(-10vh) translateX(-15px) scale(1.3); }
     }
 
-    /* ============================================
-       ✦ GLOW ORBS + MORPHING BLOB
-       ============================================ */
     .glow-orb {
       position: fixed;
       border-radius: 50%;
@@ -596,9 +609,6 @@
       66% { border-radius: 30% 70% 50% 50% / 60% 40% 70% 40%; transform: translate(-50%, -50%) rotate(240deg) scale(0.94); }
     }
 
-    /* ============================================
-       ✦ ENTRANCE CHOREOGRAPHY
-       ============================================ */
     .reveal {
       opacity: 0; transform: translateY(50px) scale(0.97); filter: blur(6px);
       transition: opacity 1.1s var(--ease-out-expo), transform 1.1s var(--ease-out-expo), filter 1.1s var(--ease-out-expo);
@@ -627,9 +637,6 @@
 
     [data-parallax] { will-change: transform; }
 
-    /* ============================================
-       ✦ ANIMATED DIVIDERS
-       ============================================ */
     .divider {
       position: relative; height: 1px; width: 100%;
       background: linear-gradient(90deg, transparent, var(--border-medium), transparent);
@@ -648,9 +655,6 @@
     @keyframes dividerSweep { 0% { left: -100%; } 100% { left: 200%; } }
     @keyframes dividerDot { 0% { left: -5%; opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { left: 105%; opacity: 0; } }
 
-    /* ============================================
-       ✦ FLOATING DECOR ICONS
-       ============================================ */
     .float-icon {
       position: absolute; color: var(--amber); opacity: 0.08; font-size: 2rem;
       pointer-events: none; z-index: 0; animation: floatIcon 10s ease-in-out infinite;
@@ -663,9 +667,6 @@
     .wrapper { position: relative; z-index: 10; display: flex; flex-direction: column; min-height: 100vh; }
     .container { max-width: 1240px; margin: 0 auto; padding: 0 2.5rem; width: 100%; }
 
-    /* ============================================
-       ✦ NAVBAR
-       ============================================ */
     .navbar {
       display: flex; align-items: center; justify-content: space-between;
       padding: 1.75rem 0; border-bottom: 1px solid var(--border-subtle);
@@ -728,9 +729,6 @@
     .btn-outline:hover::before { transform: scaleX(1); transform-origin: left; }
     .btn-outline:hover { color: var(--bg-deep); border-color: var(--amber); box-shadow: 0 12px 35px rgba(230, 166, 97, 0.3); transform: translateY(-3px); }
 
-    /* ============================================
-       ✦ HERO
-       ============================================ */
     .hero { display: flex; flex-wrap: wrap; align-items: center; gap: 4.5rem; padding: 5.5rem 0 4.5rem; position: relative; overflow: visible; }
     .kinetic-bg {
       position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
@@ -809,9 +807,6 @@
     .meta-item i { color: var(--amber); width: 14px; font-size: 0.75rem; transition: transform 0.4s var(--ease-spring); }
     .meta-item:hover i { transform: scale(1.3) rotate(-12deg); }
 
-    /* ============================================
-       ✦ HERO VISUAL
-       ============================================ */
     .hero-visual { flex: 1 1 380px; display: flex; justify-content: center; align-items: center; position: relative; min-height: 580px; animation: heroVisualEnter 1.8s var(--ease-out-expo) 0.3s both; }
     @keyframes heroVisualEnter { from { opacity: 0; transform: translateX(50px) scale(0.92); filter: blur(10px); } to { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); } }
 
@@ -858,9 +853,6 @@
     .screen-nav i:hover { color: var(--amber); transform: scale(1.25) translateY(-2px); }
     .screen-nav i.active { color: var(--amber); }
 
-    /* ============================================
-       ✦ SECTION HEADERS
-       ============================================ */
     .section-label { color: var(--amber); font-weight: 600; font-size: 0.68rem; letter-spacing: 3.5px; text-transform: uppercase; margin-bottom: 0.9rem; display: flex; align-items: center; gap: 0.75rem; }
     .section-label::after { content: ''; height: 1px; width: 60px; background: linear-gradient(90deg, var(--amber), transparent); animation: labelLine 3.5s ease-in-out infinite; }
     @keyframes labelLine { 0%, 100% { width: 60px; opacity: 1; } 50% { width: 110px; opacity: 0.5; } }
@@ -870,9 +862,6 @@
     .section-title .accent::after { content: ''; position: absolute; bottom: 0.1em; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, var(--amber), transparent); transform: scaleX(0); transform-origin: left; transition: transform 1s var(--ease-out-expo); }
     .is-visible .section-title .accent::after { transform: scaleX(1); }
 
-    /* ============================================
-       ✦ FEATURES
-       ============================================ */
     .features-section { padding: 5.5rem 0 4.5rem; border-top: 1px solid var(--border-subtle); position: relative; }
     .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
     .feature-card { background: linear-gradient(145deg, var(--bg-card) 0%, var(--bg-rich) 100%); padding: 2.4rem 2rem; border-radius: 20px; transition: all 0.6s var(--ease-out-expo); border: 1px solid var(--border-subtle); position: relative; overflow: hidden; will-change: transform; }
@@ -886,9 +875,6 @@
     .feature-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.65rem; color: var(--ivory); letter-spacing: 0.3px; position: relative; z-index: 1; }
     .feature-card p { color: var(--ivory-dim); font-size: 0.85rem; line-height: 1.75; font-weight: 300; position: relative; z-index: 1; }
 
-    /* ============================================
-       ✦ DOWNLOAD PANEL
-       ============================================ */
     .download-panel { background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-rich) 50%, var(--bg-card) 100%); padding: 3.5rem; margin: 4.5rem 0; border-radius: 28px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2.5rem; box-shadow: var(--shadow-deep); border: 1px solid var(--border-medium); position: relative; overflow: hidden; transition: transform 0.6s var(--ease-out-expo), box-shadow 0.6s; }
     .download-panel:hover { transform: translateY(-6px); box-shadow: 0 45px 90px -15px rgba(0, 0, 0, 0.95), 0 0 80px rgba(230, 166, 97, 0.06); }
     .download-panel::before { content: ''; position: absolute; top: -60%; right: -5%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(230, 166, 97, 0.12) 0%, transparent 65%); border-radius: 50%; pointer-events: none; animation: panelOrb 9s ease-in-out infinite alternate; }
@@ -908,9 +894,6 @@
     .btn-large i { font-size: 1.15rem; transition: transform 0.6s var(--ease-spring); }
     .btn-large:hover i { transform: rotate(360deg) scale(1.15); }
 
-    /* ============================================
-       ✦ DEVELOPER SECTION
-       ============================================ */
     .dev-section { margin: 3rem 0 5.5rem; background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-rich) 60%, var(--bg-card) 100%); border-radius: 32px; padding: 4.5rem; display: flex; align-items: flex-start; gap: 5rem; flex-wrap: wrap; position: relative; box-shadow: var(--shadow-deep); border: 1px solid var(--border-medium); overflow: hidden; transition: transform 0.6s var(--ease-out-expo), box-shadow 0.6s; }
     .dev-section:hover { transform: translateY(-4px); box-shadow: 0 45px 90px -15px rgba(0, 0, 0, 0.95), 0 0 80px rgba(230, 166, 97, 0.05); }
     .dev-section::before { content: ''; position: absolute; top: -50%; left: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(230, 166, 97, 0.07) 0%, transparent 65%); border-radius: 50%; pointer-events: none; animation: devOrb1 14s ease-in-out infinite alternate; }
@@ -974,9 +957,6 @@
     .dev-btn-home i { transition: transform 0.4s var(--ease-spring); }
     .dev-btn-home:hover i { transform: translateY(-3px); }
 
-    /* ============================================
-       ✦ FOOTER
-       ============================================ */
     .footer { margin-top: auto; padding: 2.75rem 0 2.25rem; border-top: 1px solid var(--border-subtle); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; color: var(--ivory-ghost); font-size: 0.7rem; letter-spacing: 1.2px; font-weight: 400; }
     .footer a { color: var(--ivory-faint); text-decoration: none; transition: color 0.3s ease; letter-spacing: 1.2px; position: relative; }
     .footer a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px; background: var(--amber); transition: width 0.35s var(--ease-out-expo); }
@@ -984,9 +964,6 @@
     .footer a:hover::after { width: 100%; }
     .footer-links { display: flex; gap: 2.4rem; }
 
-    /* ============================================
-       ✦ RESPONSIVE
-       ============================================ */
     @media (max-width: 900px) {
       .dev-section { padding: 3rem 2.5rem; gap: 3rem; }
       .dev-journey { grid-template-columns: 1fr 1fr; }
@@ -1018,6 +995,7 @@
       .intro-scene { padding: 1.4rem; }
       .scene-brand { letter-spacing: 3px; }
       .intro-progress-track { width: 80vw; }
+      .audio-hint { font-size: 0.6rem; padding: 0.6rem 1.1rem; bottom: 1rem; }
     }
 
     ::selection { background: var(--amber); color: var(--bg-deep); }
@@ -1034,14 +1012,18 @@
 </head>
 <body>
 
+  <!-- ✦ AUDIO UNLOCK HINT -->
+  <div class="audio-hint" id="audioHint">
+    <i class="fas fa-volume-up"></i>
+    <span>Tap anywhere to <span class="audio-hint-text">play music</span></span>
+  </div>
+
   <!-- ✦ CINEMATIC INTRO SEQUENCE -->
   <div class="intro-gate" id="introGate">
     <div class="cine-bar top"></div>
     <div class="cine-bar bottom"></div>
 
     <div class="intro-scenes" id="introScenes">
-
-      <!-- SCENE 1: Emblem + Brand -->
       <div class="intro-scene active" data-scene="0">
         <div class="scene-emblem">
           <div class="emblem-ring"></div>
@@ -1053,14 +1035,12 @@
         <div class="scene-sub">Premium Streaming · Est. 2025</div>
       </div>
 
-      <!-- SCENE 2: Tagline sweep -->
       <div class="intro-scene" data-scene="1">
         <div class="scene-tagline" id="sceneTagline">
           A cinematic vault for the <em>modern streamer</em>.
         </div>
       </div>
 
-      <!-- SCENE 3: Feature reveal -->
       <div class="intro-scene" data-scene="2">
         <div class="scene-features" id="sceneFeatures">
           <div class="scene-feature">
@@ -1082,7 +1062,6 @@
         </div>
       </div>
 
-      <!-- SCENE 4: Developer reveal -->
       <div class="intro-scene" data-scene="3">
         <div class="scene-dev">
           <div class="scene-dev-avatar"><h2>VK</h2></div>
@@ -1092,7 +1071,6 @@
         </div>
       </div>
 
-      <!-- SCENE 5: Enter prompt -->
       <div class="intro-scene" data-scene="4">
         <div class="scene-enter">
           <div class="enter-title">Welcome to the <span>Vault</span></div>
@@ -1102,10 +1080,8 @@
           <div class="enter-hint">Press Enter · Or click to begin</div>
         </div>
       </div>
-
     </div>
 
-    <!-- progress + controls -->
     <div class="intro-progress-track">
       <div class="intro-progress-fill" id="introProgress"></div>
     </div>
@@ -1115,8 +1091,8 @@
     </div>
   </div>
 
-  <!-- ✦ BACKGROUND AUDIO -->
-  <audio id="bg-music" src="Draven Godrics - Shinigami (Slowed).mp3" loop></audio>
+  <!-- ✦ BACKGROUND AUDIO (plays on first user gesture) -->
+  <audio id="bg-music" src="Draven Godrics - Shinigami (Slowed).mp3" loop preload="auto"></audio>
 
   <!-- ✦ Scroll progress bar -->
   <div class="scroll-progress" id="scrollProgress"></div>
@@ -1361,6 +1337,84 @@
       const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
       /* ============================================
+         ✦ AUDIO — PLAY ON FIRST USER GESTURE (immediately, not after intro)
+         ============================================ */
+      const bgMusic = document.getElementById('bg-music');
+      const audioHint = document.getElementById('audioHint');
+      let audioStarted = false;
+      let audioHintTimer = null;
+
+      // Try autoplay immediately (works if browser allows it)
+      function tryAutoPlay() {
+        bgMusic.volume = 0.55;
+        const p = bgMusic.play();
+        if (p !== undefined) {
+          p.then(() => {
+            audioStarted = true;
+            audioHint.classList.remove('show');
+          }).catch(() => {
+            // Autoplay blocked — show hint and wait for a gesture
+            showAudioHint();
+          });
+        }
+      }
+
+      function showAudioHint() {
+        audioHint.classList.add('show');
+        clearTimeout(audioHintTimer);
+        audioHintTimer = setTimeout(() => audioHint.classList.remove('show'), 8000);
+      }
+
+      function startAudioFromGesture() {
+        if (audioStarted) return;
+        bgMusic.volume = 0.55;
+        const p = bgMusic.play();
+        if (p !== undefined) {
+          p.then(() => {
+            audioStarted = true;
+            audioHint.classList.remove('show');
+            clearTimeout(audioHintTimer);
+            removeGestureListeners();
+          }).catch(() => {
+            // Still blocked — keep listening
+          });
+        } else {
+          // Older browsers
+          audioStarted = true;
+          audioHint.classList.remove('show');
+          removeGestureListeners();
+        }
+      }
+
+      const gestureEvents = ['click', 'touchstart', 'keydown', 'pointerdown', 'scroll', 'mousedown'];
+      function removeGestureListeners() {
+        gestureEvents.forEach(evt => {
+          document.removeEventListener(evt, startAudioFromGesture, true);
+          window.removeEventListener(evt, startAudioFromGesture, true);
+        });
+      }
+      gestureEvents.forEach(evt => {
+        document.addEventListener(evt, startAudioFromGesture, true);
+        window.addEventListener(evt, startAudioFromGesture, true);
+      });
+
+      // Kick off autoplay attempt right away
+      tryAutoPlay();
+
+      // Also show the hint after a short delay if autoplay is blocked
+      setTimeout(() => {
+        if (!audioStarted) showAudioHint();
+      }, 1200);
+
+      // Ensure that when the intro is dismissed, music is definitely playing
+      function ensureAudioPlaying() {
+        if (bgMusic.paused) {
+          bgMusic.volume = 0.55;
+          bgMusic.play().catch(() => {});
+        }
+      }
+
+      /* ============================================
          ✦ CINEMATIC INTRO SEQUENCE
          ============================================ */
       const introGate = document.getElementById('introGate');
@@ -1370,9 +1424,8 @@
       const introSkip = document.getElementById('introSkip');
       const introEnter = document.getElementById('introEnter');
       const siteShell = document.getElementById('siteShell');
-      const bgMusic = document.getElementById('bg-music');
 
-      const SCENE_DURATIONS = [3800, 3200, 4200, 3400, 999999]; // last scene waits for user
+      const SCENE_DURATIONS = [3800, 3200, 4200, 3400, 999999];
       let currentScene = 0;
       let sceneTimer = null;
       let progressTimer = null;
@@ -1409,7 +1462,6 @@
         introProgress.style.width = '0%';
         startProgress(duration);
 
-        // if last scene, stop auto-advance
         if (index < introScenes.length - 1) {
           clearTimeout(sceneTimer);
           sceneTimer = setTimeout(() => goToScene(index + 1), duration);
@@ -1422,27 +1474,7 @@
         clearTimeout(sceneTimer);
         clearInterval(progressTimer);
 
-        // expand cinematic bars then fade
         introGate.classList.add('expanding');
-
-                // ▶ START SONG IMMEDIATELY on Enter / Skip click (user gesture)
-        bgMusic.volume = 0.5;
-        bgMusic.currentTime = 0;
-        const playAttempt = bgMusic.play();
-        if (playAttempt !== undefined) {
-          playAttempt.catch(() => {
-            // fallback: retry on next user interaction
-            const retry = () => {
-              bgMusic.play().catch(() => {});
-              document.removeEventListener('click', retry);
-              document.removeEventListener('touchstart', retry);
-              document.removeEventListener('keydown', retry);
-            };
-            document.addEventListener('click', retry);
-            document.addEventListener('touchstart', retry);
-            document.addEventListener('keydown', retry);
-          });
-        }
 
         setTimeout(() => {
           introGate.classList.add('dismissed');
@@ -1451,29 +1483,25 @@
           if (!prefersReduced) {
             setTimeout(typeHeadline, 500);
           }
-          // ▶ ensure it keeps playing when site opens
-          if (bgMusic.paused) {
-            bgMusic.play().catch(() => {});
-          }
+          ensureAudioPlaying();
           window.dispatchEvent(new CustomEvent('introDismissed'));
         }, immediate ? 100 : 700);
+      }
 
       introSkip.addEventListener('click', () => dismissIntro());
-      introEnter.addEventListener('click', () => dismissIntro(true));
+      introEnter.addEventListener('click', () => {
+        // Gesture also unlocks audio
+        startAudioFromGesture();
+        dismissIntro(true);
+      });
 
-            document.addEventListener('keydown', (e) => {
+      document.addEventListener('keydown', (e) => {
         if (introDismissed) return;
         if (e.key === 'Enter') {
-          // ▶ kick off the song right here (still inside the user gesture)
-          bgMusic.volume = 0.5;
-          bgMusic.currentTime = 0;
-          bgMusic.play().catch(() => {});
-          // if on last scene, enter; otherwise skip
+          startAudioFromGesture();
           if (currentScene === introScenes.length - 1) dismissIntro(true);
           else dismissIntro();
         } else if (e.key === 'Escape') {
-          bgMusic.volume = 0.5;
-          bgMusic.play().catch(() => {});
           dismissIntro();
         } else if (e.key === 'ArrowRight') {
           clearTimeout(sceneTimer);
@@ -1481,12 +1509,10 @@
         }
       });
 
-      // Begin the cinematic sequence
       if (!prefersReduced) {
         updateIndicator();
         goToScene(0);
       } else {
-        // reduced motion: jump straight to enter scene
         goToScene(introScenes.length - 1);
         introProgress.style.width = '100%';
       }
@@ -1570,7 +1596,6 @@
         cursor2.classList.add('solid');
       }
 
-      /* ---------- LIVE TYPING TAGLINE ---------- */
       const taglineEl = document.getElementById('liveTaglineText');
       const taglinePhrases = [
         '4K HDR STREAMING',
@@ -1584,7 +1609,6 @@
       let taglineIndex = 0;
       let taglineChar = 0;
       let taglineDeleting = false;
-      let taglineTimer = null;
       let taglineCycleStarted = false;
 
       function typeTagline() {
@@ -1593,21 +1617,21 @@
           if (taglineChar <= current.length) {
             taglineEl.textContent = current.slice(0, taglineChar);
             taglineChar++;
-            taglineTimer = setTimeout(typeTagline, 55);
+            setTimeout(typeTagline, 55);
           } else {
             taglineDeleting = true;
-            taglineTimer = setTimeout(typeTagline, 2000);
+            setTimeout(typeTagline, 2000);
           }
         } else {
           if (taglineChar >= 0) {
             taglineEl.textContent = current.slice(0, taglineChar);
             taglineChar--;
-            taglineTimer = setTimeout(typeTagline, 30);
+            setTimeout(typeTagline, 30);
           } else {
             taglineDeleting = false;
             taglineIndex = (taglineIndex + 1) % taglinePhrases.length;
             taglineChar = 0;
-            taglineTimer = setTimeout(typeTagline, 450);
+            setTimeout(typeTagline, 450);
           }
         }
       }
