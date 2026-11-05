@@ -62,8 +62,6 @@
       visibility: hidden;
       pointer-events: none;
     }
-
-    /* film grain + vignette overlay */
     .intro-gate::after {
       content: '';
       position: absolute;
@@ -81,7 +79,6 @@
       z-index: 4;
     }
 
-    /* letterbox bars (cinematic) */
     .cine-bar {
       position: absolute;
       left: 0; right: 0;
@@ -94,7 +91,6 @@
     .cine-bar.bottom { bottom: 0; }
     .intro-gate.expanding .cine-bar { height: 0; }
 
-    /* scene container */
     .intro-scenes {
       position: absolute;
       inset: 0;
@@ -129,7 +125,6 @@
       visibility: hidden;
     }
 
-    /* scene 1: particle burst emblem */
     .scene-emblem {
       position: relative;
       width: 160px;
@@ -203,7 +198,6 @@
       animation: fadeUpScene 1s var(--ease-out-expo) 2s forwards;
     }
 
-    /* scene 2: tagline sweep */
     .scene-tagline {
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-style: italic;
@@ -218,17 +212,7 @@
       font-style: italic;
       text-shadow: 0 0 50px rgba(230, 166, 97, 0.5);
     }
-    .scene-tagline .word {
-      display: inline-block;
-      opacity: 0;
-      transform: translateY(30px) rotateX(40deg);
-      animation: wordIn 0.7s var(--ease-out-expo) forwards;
-    }
-    @keyframes wordIn {
-      to { opacity: 1; transform: translateY(0) rotateX(0); }
-    }
 
-    /* scene 3: feature list reveal */
     .scene-features {
       display: flex;
       flex-direction: column;
@@ -248,6 +232,10 @@
       transform: translateX(-40px);
       animation: featureIn 0.8s var(--ease-out-expo) forwards;
     }
+    .intro-scene.active .scene-feature:nth-child(1) { animation-delay: 0.1s; }
+    .intro-scene.active .scene-feature:nth-child(2) { animation-delay: 0.3s; }
+    .intro-scene.active .scene-feature:nth-child(3) { animation-delay: 0.5s; }
+    .intro-scene.active .scene-feature:nth-child(4) { animation-delay: 0.7s; }
     .scene-feature i {
       color: var(--amber);
       font-size: 1.3rem;
@@ -273,7 +261,6 @@
       to { opacity: 1; transform: translateX(0); }
     }
 
-    /* scene 4: developer reveal */
     .scene-dev {
       display: flex;
       flex-direction: column;
@@ -331,7 +318,6 @@
       animation: fadeUpScene 0.9s var(--ease-out-expo) 0.9s forwards;
     }
 
-    /* scene 5: enter prompt */
     .scene-enter {
       display: flex;
       flex-direction: column;
@@ -393,7 +379,6 @@
       letter-spacing: 3px;
       text-transform: uppercase;
       color: var(--ivory-ghost);
-      animation: hintPulse 2s ease-in-out infinite;
       opacity: 0;
       animation: fadeUpScene 1s var(--ease-out-expo) 0.9s forwards, hintPulse 2s ease-in-out 2s infinite;
     }
@@ -407,7 +392,6 @@
       to { opacity: 1; transform: translateY(0); filter: blur(0); }
     }
 
-    /* intro progress bar + skip */
     .intro-progress-track {
       position: absolute;
       bottom: calc(8vh + 1.4rem);
@@ -1030,6 +1014,69 @@
       *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
       .reveal, .reveal-scale, .stagger > * { opacity: 1 !important; transform: none !important; filter: none !important; }
     }
+
+    /* ============================================
+       ✦ MUSIC TOGGLE (bottom-right floating button)
+       ============================================ */
+    .music-toggle {
+      position: fixed;
+      bottom: 1.6rem;
+      right: 1.6rem;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(13, 9, 6, 0.85);
+      border: 1px solid var(--border-medium);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--amber);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      z-index: 999999;
+      cursor: pointer;
+      transition: all 0.4s var(--ease-out-expo);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.6), 0 0 24px rgba(230, 166, 97, 0.15);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px) scale(0.8);
+    }
+    .site-shell.visible ~ .music-toggle,
+    .music-toggle.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+    .music-toggle:hover {
+      border-color: var(--amber);
+      transform: translateY(-4px) scale(1.08);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7), 0 0 36px rgba(230, 166, 97, 0.35);
+    }
+    .music-toggle .eq-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 16px;
+    }
+    .music-toggle .eq-bars span {
+      width: 2px;
+      background: var(--amber);
+      border-radius: 1px;
+      animation: eqBounce 0.9s ease-in-out infinite;
+    }
+    .music-toggle .eq-bars span:nth-child(1) { height: 40%; animation-delay: 0s; }
+    .music-toggle .eq-bars span:nth-child(2) { height: 90%; animation-delay: 0.15s; }
+    .music-toggle .eq-bars span:nth-child(3) { height: 60%; animation-delay: 0.3s; }
+    .music-toggle .eq-bars span:nth-child(4) { height: 80%; animation-delay: 0.45s; }
+    @keyframes eqBounce {
+      0%, 100% { transform: scaleY(0.5); }
+      50% { transform: scaleY(1); }
+    }
+    .music-toggle.paused .eq-bars span {
+      animation-play-state: paused;
+      opacity: 0.4;
+    }
   </style>
 </head>
 <body>
@@ -1055,14 +1102,14 @@
 
       <!-- SCENE 2: Tagline sweep -->
       <div class="intro-scene" data-scene="1">
-        <div class="scene-tagline" id="sceneTagline">
+        <div class="scene-tagline">
           A cinematic vault for the <em>modern streamer</em>.
         </div>
       </div>
 
       <!-- SCENE 3: Feature reveal -->
       <div class="intro-scene" data-scene="2">
-        <div class="scene-features" id="sceneFeatures">
+        <div class="scene-features">
           <div class="scene-feature">
             <i class="fas fa-play-circle"></i>
             <div><h4>4K HDR Playback</h4><p>Adaptive HLS &amp; DASH with picture-in-picture</p></div>
@@ -1116,7 +1163,7 @@
   </div>
 
   <!-- ✦ BACKGROUND AUDIO -->
-  <audio id="bg-music" src="Draven Godrics - Shinigami (Slowed).mp3" loop></audio>
+  <audio id="bg-music" src="Draven Godrics - Shinigami (Slowed).mp3" loop preload="auto"></audio>
 
   <!-- ✦ Scroll progress bar -->
   <div class="scroll-progress" id="scrollProgress"></div>
@@ -1355,6 +1402,11 @@
     </div>
   </div>
 
+  <!-- ✦ MUSIC TOGGLE -->
+  <button class="music-toggle" id="musicToggle" aria-label="Toggle music">
+    <div class="eq-bars"><span></span><span></span><span></span><span></span></div>
+  </button>
+
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const isMobile = window.matchMedia("(max-width: 768px)").matches;
@@ -1371,8 +1423,9 @@
       const introEnter = document.getElementById('introEnter');
       const siteShell = document.getElementById('siteShell');
       const bgMusic = document.getElementById('bg-music');
+      const musicToggle = document.getElementById('musicToggle');
 
-      const SCENE_DURATIONS = [3800, 3200, 4200, 3400, 999999]; // last scene waits for user
+      const SCENE_DURATIONS = [3800, 3200, 4200, 3400, 999999];
       let currentScene = 0;
       let sceneTimer = null;
       let progressTimer = null;
@@ -1409,31 +1462,49 @@
         introProgress.style.width = '0%';
         startProgress(duration);
 
-        // if last scene, stop auto-advance
         if (index < introScenes.length - 1) {
           clearTimeout(sceneTimer);
           sceneTimer = setTimeout(() => goToScene(index + 1), duration);
         }
       }
 
+      /* === CORE DISMISS: reveals site AND starts music === */
       function dismissIntro(immediate = false) {
         if (introDismissed) return;
         introDismissed = true;
         clearTimeout(sceneTimer);
         clearInterval(progressTimer);
 
-        // expand cinematic bars then fade
-        introGate.classList.add('expanding');
+        // 🎵 START THE SONG the moment the site opens
+        bgMusic.volume = 0.5;
+        const playAttempt = bgMusic.play();
+        if (playAttempt !== undefined) {
+          playAttempt.then(() => {
+            musicToggle.classList.remove('paused');
+          }).catch(() => {
+            // Fallback: wait for any gesture (should not happen since we are in a click)
+            const startAudio = () => {
+              bgMusic.play().then(() => musicToggle.classList.remove('paused')).catch(() => {});
+              document.removeEventListener('click', startAudio);
+              document.removeEventListener('touchstart', startAudio);
+              document.removeEventListener('keydown', startAudio);
+            };
+            document.addEventListener('click', startAudio);
+            document.addEventListener('touchstart', startAudio);
+            document.addEventListener('keydown', startAudio);
+          });
+        }
 
+        // Reveal the site
+        introGate.classList.add('expanding');
         setTimeout(() => {
           introGate.classList.add('dismissed');
           siteShell.classList.add('visible');
+          musicToggle.classList.add('visible');
           document.body.style.overflow = '';
           if (!prefersReduced) {
             setTimeout(typeHeadline, 500);
           }
-          bgMusic.volume = 0.5;
-          bgMusic.play().catch(() => {});
           window.dispatchEvent(new CustomEvent('introDismissed'));
         }, immediate ? 100 : 700);
       }
@@ -1444,7 +1515,6 @@
       document.addEventListener('keydown', (e) => {
         if (introDismissed) return;
         if (e.key === 'Enter') {
-          // if on last scene, enter; otherwise skip
           if (currentScene === introScenes.length - 1) dismissIntro(true);
           else dismissIntro();
         } else if (e.key === 'Escape') {
@@ -1455,15 +1525,30 @@
         }
       });
 
-      // Begin the cinematic sequence
       if (!prefersReduced) {
         updateIndicator();
         goToScene(0);
       } else {
-        // reduced motion: jump straight to enter scene
         goToScene(introScenes.length - 1);
         introProgress.style.width = '100%';
       }
+
+      /* ============================================
+         ✦ MUSIC TOGGLE (play/pause)
+         ============================================ */
+      musicToggle.addEventListener('click', () => {
+        if (bgMusic.paused) {
+          bgMusic.play().then(() => {
+            musicToggle.classList.remove('paused');
+          }).catch(() => {});
+        } else {
+          bgMusic.pause();
+          musicToggle.classList.add('paused');
+        }
+      });
+
+      bgMusic.addEventListener('play', () => musicToggle.classList.remove('paused'));
+      bgMusic.addEventListener('pause', () => musicToggle.classList.add('paused'));
 
       /* ============================================
          ✦ LIVE TYPING HEADLINE
