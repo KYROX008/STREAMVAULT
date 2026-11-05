@@ -1764,6 +1764,19 @@
           window.scrollTo({ top: 0, behavior: 'smooth' });
         });
       }
+
+      /* ---------- SMOOTH ANCHOR SCROLLING (for nav links) ---------- */
+      document.querySelectorAll('.nav-links a[href^="#"], .footer a[href^="#"]').forEach(link => {
+        link.addEventListener('click', (e) => {
+          const href = link.getAttribute('href');
+          if (href === '#') return;
+          const target = document.querySelector(href);
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
     });
   </script>
 </body>
