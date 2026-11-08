@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YAPORA · anonymous chat · hardened</title>
-  <!-- Font Awesome & Fonts (same as original, plus additional) -->
+  <title>YAPORA · talk freely · anonymous chat</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -50,7 +49,7 @@
     }
 
     /* ============================================
-       ✦ BACKGROUND / AURORA (purple adaptation)
+       ✦ BACKGROUND / AURORA (purple)
        ============================================ */
     body::before {
       content: "";
@@ -79,7 +78,7 @@
       opacity: 0.8;
     }
 
-    /* glow orbs purple */
+    /* glow orbs */
     .glow-orb {
       position: fixed;
       border-radius: 50%;
@@ -228,7 +227,7 @@
     .btn-outline:hover { color: var(--bg-deep); border-color: var(--violet); box-shadow: 0 12px 35px rgba(176, 122, 255, 0.3); transform: translateY(-3px); }
 
     /* ============================================
-       ✦ HERO SECTION (with yapora cat / logo vibe)
+       ✦ HERO SECTION
        ============================================ */
     .hero { display: flex; flex-wrap: wrap; align-items: center; gap: 4.5rem; padding: 5.5rem 0 4.5rem; position: relative; overflow: visible; }
     .hero-content { flex: 1 1 420px; position: relative; z-index: 2; animation: heroContentEnter 1.6s var(--ease-out-expo) both; }
@@ -297,7 +296,7 @@
     .meta-item i { color: var(--violet); width: 14px; font-size: 0.75rem; transition: transform 0.4s var(--ease-spring); }
     .meta-item:hover i { transform: scale(1.3) rotate(-12deg); }
 
-    /* hero visual — yapora cat representation */
+    /* hero visual — yapora card */
     .hero-visual { flex: 1 1 380px; display: flex; justify-content: center; align-items: center; position: relative; min-height: 580px; animation: heroVisualEnter 1.8s var(--ease-out-expo) 0.3s both; }
     @keyframes heroVisualEnter { from { opacity: 0; transform: translateX(50px) scale(0.92); filter: blur(10px); } to { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); } }
 
@@ -311,7 +310,6 @@
     .orbit-dot::after { content: ''; position: absolute; width: 4px; height: 4px; border-radius: 50%; background: #fff; top: 50%; left: 50%; transform: translate(-50%, -50%); }
     @keyframes orbit { from { transform: translate(-50%, -50%) rotate(0deg) translateX(240px) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg) translateX(240px) rotate(-360deg); } }
 
-    /* YAPORA card / phone-like representation with cat */
     .yapora-card {
       background: linear-gradient(145deg, var(--bg-card) 0%, var(--bg-rich) 100%);
       padding: 20px 20px 28px;
@@ -498,7 +496,7 @@
     .footer a:hover::after { width: 100%; }
     .footer-links { display: flex; gap: 2.4rem; }
 
-    /* audio hint (purple) */
+    /* audio hint */
     .audio-hint {
       position: fixed; bottom: 1.4rem; left: 50%; transform: translateX(-50%);
       z-index: 1000001; display: flex; align-items: center; gap: 0.7rem;
@@ -513,7 +511,7 @@
     @keyframes audioPulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.85); } }
     .audio-hint .audio-hint-text { color: var(--violet); font-weight: 700; }
 
-    /* intro gate (purple) */
+    /* intro gate */
     .intro-gate {
       position: fixed; inset: 0; z-index: 2000000; background: #000; overflow: hidden;
       transition: opacity 1.2s var(--ease-out-expo), visibility 1.2s;
@@ -649,7 +647,7 @@
     <span>Tap anywhere to <span class="audio-hint-text">play music</span></span>
   </div>
 
-  <!-- ✦ CINEMATIC INTRO SEQUENCE (purple-themed) -->
+  <!-- ✦ CINEMATIC INTRO SEQUENCE -->
   <div class="intro-gate" id="introGate">
     <div class="cine-bar top"></div>
     <div class="cine-bar bottom"></div>
@@ -668,7 +666,7 @@
 
       <div class="intro-scene" data-scene="1">
         <div class="scene-tagline" id="sceneTagline">
-          Anonymous chat. <em>Hardened security.</em>
+          Anonymous chat. <em>Stay protected.</em>
         </div>
       </div>
 
@@ -676,19 +674,19 @@
         <div class="scene-features" id="sceneFeatures">
           <div class="scene-feature">
             <i class="fas fa-user-secret"></i>
-            <div><h4>Anonymous Guest</h4><p>No email, no phone — instant Firebase anon sign-in</p></div>
+            <div><h4>Anonymous Guest</h4><p>No email, no phone — instant access</p></div>
           </div>
           <div class="scene-feature">
             <i class="fas fa-comments"></i>
             <div><h4>Real-time rooms</h4><p>Public & direct messaging with live presence</p></div>
           </div>
           <div class="scene-feature">
-            <i class="fas fa-shield-alt"></i>
-            <div><h4>freeRASP hardened</h4><p>Root, Frida, Xposed detection + tamper proof</p></div>
+            <i class="fas fa-clock"></i>
+            <div><h4>1-hour ephemeral</h4><p>Messages auto-expire after 1 hour</p></div>
           </div>
           <div class="scene-feature">
-            <i class="fas fa-clock"></i>
-            <div><h4>1-hour ephemeral</h4><p>Auto-expiring messages, cleaned server-side</p></div>
+            <i class="fas fa-smile"></i>
+            <div><h4>Meme stickers</h4><p>16-sticker picker + VIP avatars</p></div>
           </div>
         </div>
       </div>
@@ -722,7 +720,7 @@
     </div>
   </div>
 
-  <!-- ✦ BACKGROUND AUDIO (replace with your track) -->
+  <!-- ✦ BACKGROUND AUDIO -->
   <audio id="bg-music" src="Draven Godrics - Shinigami (Slowed).mp3" loop preload="auto"></audio>
 
   <!-- ✦ Scroll progress bar -->
@@ -751,7 +749,7 @@
             <a href="#developer">Developer</a>
             <a href="#support">Download</a>
           </div>
-          <!-- Updated APK link -->
+          <!-- APK download link (top) -->
           <a href="https://github.com/vxrunhh/YAPORA/releases/download/YAPORA/app-release.apk" class="btn-outline" target="_blank" rel="noopener noreferrer">
             <i class="fas fa-download"></i> Get APK
           </a>
@@ -761,14 +759,13 @@
       <main class="container">
 
         <section class="hero">
-          <!-- floating icons -->
           <i class="fas fa-star float-icon" style="top: 8%; left: 2%; animation-delay: 0s;"></i>
           <i class="fas fa-moon float-icon" style="top: 70%; left: 5%; animation-delay: 1.5s; font-size: 1.4rem;"></i>
           <i class="fas fa-play float-icon" style="top: 20%; right: 3%; animation-delay: 0.8s;"></i>
           <i class="fas fa-comment-dots float-icon" style="bottom: 10%; right: 8%; animation-delay: 2.2s; font-size: 1.6rem;"></i>
 
           <div class="hero-content" data-parallax="0.15">
-            <span class="hero-badge"><i class="fas fa-crown"></i> v1.1.1 · Hardened · Android 7.0+</span>
+            <span class="hero-badge"><i class="fas fa-crown"></i> v1.1.1 · Android 7.0+</span>
 
             <h1 aria-label="Talk Freely">
               <span class="type-line" aria-hidden="true">
@@ -787,8 +784,8 @@
             </div>
 
             <p class="hero-desc">
-              YAPORA — anonymous, hardened chat. Real-time public rooms, direct messages, 
-              and freeRASP protection. Ephemeral messages, meme stickers, and VIP avatars.
+              YAPORA — anonymous, real-time chat. Public rooms, direct messages, 
+              and ephemeral 1-hour messages. Meme stickers, VIP avatars, and verified badges.
             </p>
 
             <div class="download-group">
@@ -804,20 +801,19 @@
 
             <div class="release-note">
               <i class="fas fa-arrow-up-right-from-square"></i>
-              <span>Redirects to GitHub Releases · SHA-256 verified</span>
+              <span>Redirects to GitHub Releases</span>
             </div>
 
             <div class="meta-features">
-              <div class="meta-item"><i class="fas fa-shield-alt"></i> freeRASP</div>
-              <div class="meta-item"><i class="fas fa-lock"></i> XOR masked URLs</div>
               <div class="meta-item"><i class="fas fa-user-secret"></i> Anonymous</div>
+              <div class="meta-item"><i class="fas fa-clock"></i> 1h ephemeral</div>
+              <div class="meta-item"><i class="fas fa-smile"></i> Meme stickers</div>
             </div>
           </div>
 
           <div class="hero-visual" data-parallax="0.08">
             <div class="hero-decor"></div>
             <div class="orbit-dot"></div>
-            <!-- YAPORA card representation (cat icon, brand) -->
             <div class="yapora-card">
               <div class="card-cat-glow">
                 <i class="fas fa-cat"></i>
@@ -836,56 +832,56 @@
         <div class="divider"></div>
 
         <section id="features" class="features-section">
-          <div class="section-label reveal">Hardened chat</div>
+          <div class="section-label reveal">Chat features</div>
           <h2 class="section-title reveal">Everything <span class="accent">you need</span></h2>
 
           <div class="features-grid stagger" id="featuresGrid">
             <div class="feature-card">
               <div class="feature-icon"><i class="fas fa-user-secret"></i></div>
               <h3>Anonymous Guest</h3>
-              <p>Firebase Anonymous Auth — no personal info required. Instant access.</p>
+              <p>No personal info required. Instant access to chat rooms.</p>
             </div>
             <div class="feature-card">
               <div class="feature-icon"><i class="fas fa-comments"></i></div>
               <h3>Real-time Chat</h3>
-              <p>Public rooms & direct messages with live presence, powered by Firebase Realtime DB.</p>
-            </div>
-            <div class="feature-card">
-              <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
-              <h3>freeRASP + XOR</h3>
-              <p>Root, Frida, Xposed detection. Bytecode endpoint masking. Zero plain-text URLs.</p>
+              <p>Public rooms & direct messages with live presence and instant sync.</p>
             </div>
             <div class="feature-card">
               <div class="feature-icon"><i class="fas fa-clock"></i></div>
               <h3>1-hour ephemeral</h3>
-              <p>Messages auto-expire after 1 hour. Server-side Cloud Function cleanup.</p>
+              <p>Messages auto-expire after 1 hour. Clean, private conversations.</p>
             </div>
             <div class="feature-card">
               <div class="feature-icon"><i class="fas fa-smile"></i></div>
               <h3>Meme Sticker Store</h3>
-              <p>16-sticker picker loaded over HTTPS, synchronized with Admin console.</p>
+              <p>16-sticker picker loaded dynamically and synced with admin.</p>
             </div>
             <div class="feature-card">
               <div class="feature-icon"><i class="fas fa-certificate"></i></div>
               <h3>Verified Badges</h3>
-              <p>Admin-managed blue tick, user ID copy chip, and VIP gradient avatars.</p>
+              <p>Admin-managed blue tick, user ID copy, and VIP gradient avatars.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon"><i class="fas fa-bullhorn"></i></div>
+              <h3>Broadcast Announcements</h3>
+              <p>Real-time admin announcements displayed across all active clients.</p>
             </div>
           </div>
         </section>
 
         <div class="divider"></div>
 
-        <!-- Support / Download panel with updated APK link -->
+        <!-- Support / Download panel -->
         <div class="download-panel reveal-scale" data-parallax="0.06" id="support">
           <div>
             <h2>Get the <span class="accent">latest build</span></h2>
-            <p>Direct from GitHub Releases. Signed and hardened.</p>
+            <p>Direct from GitHub Releases. Signed and ready to install.</p>
             <div class="cert-note">
               <i class="fas fa-shield" style="margin-right: 6px; color:#b07aff;"></i>
-              Release APK uses SHA-256 verification. VHEX protected, ABI filters for arm64.
+              Release APK from vxrunhh/YAPORA · arm64-v8a & armeabi-v7a
             </div>
           </div>
-          <!-- Updated APK link -->
+          <!-- APK download link (panel) -->
           <a href="https://github.com/vxrunhh/YAPORA/releases/download/YAPORA/app-release.apk" class="btn-large" target="_blank" rel="noopener noreferrer">
             <i class="fab fa-github"></i> GitHub Release
           </a>
@@ -907,22 +903,21 @@
             <h1 class="dev-title">Varun K<span>.</span></h1>
             <div class="dev-role">@vxrunhh <span class="role-dot"></span> Android Craftsman <span class="role-dot"></span> India 🇮🇳</div>
             <p class="dev-desc">
-              Hi, I'm Varun — I build <strong>fast, secure, and delightful</strong> Android apps. 
-              YAPORA is my take on anonymous chat: hardened against reverse engineering, 
-              yet lightweight and expressive. FreeRASP, XOR masking, and ephemeral messaging 
-              are all part of the package. <strong>Talk freely, stay protected.</strong>
+              Hi, I'm Varun — I build <strong>fast, beautiful, and user-friendly</strong> Android apps. 
+              YAPORA is my take on anonymous chat: lightweight, expressive, and privacy-focused. 
+              <strong>Talk freely, stay protected.</strong>
               <br><br>
               Follow my journey on Instagram for dev logs, builds, and more.
             </p>
             <div class="dev-journey">
-              <div class="dev-journey-item"><span class="journey-icon"><i class="fas fa-rocket"></i></span><h4>Mission</h4><p>Anonymous chat that respects privacy and resists tampering.</p></div>
-              <div class="dev-journey-item"><span class="journey-icon"><i class="fas fa-layer-group"></i></span><h4>Stack</h4><p>Kotlin · Jetpack Compose · Firebase · freeRASP · R8</p></div>
+              <div class="dev-journey-item"><span class="journey-icon"><i class="fas fa-rocket"></i></span><h4>Mission</h4><p>Anonymous chat that respects privacy and keeps conversations light.</p></div>
+              <div class="dev-journey-item"><span class="journey-icon"><i class="fas fa-layer-group"></i></span><h4>Stack</h4><p>Kotlin · Jetpack Compose · Firebase · Material 3</p></div>
               <div class="dev-journey-item"><span class="journey-icon"><i class="fas fa-palette"></i></span><h4>Craft</h4><p>Purple neon aesthetics, cat mascot, and smooth interactions.</p></div>
             </div>
             <div class="dev-tags">
               <span class="dev-tag"><i class="fas fa-code"></i> Kotlin & Compose</span>
               <span class="dev-tag"><i class="fab fa-android"></i> Android</span>
-              <span class="dev-tag"><i class="fas fa-shield-alt"></i> RASP / Anti-reverse</span>
+              <span class="dev-tag"><i class="fas fa-comment"></i> Chat & Realtime</span>
               <span class="dev-tag"><i class="fas fa-map-marker-alt"></i> India</span>
             </div>
             <div class="dev-actions">
@@ -956,7 +951,7 @@
       const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
       /* ============================================
-         ✦ AUDIO — PLAY ON FIRST USER GESTURE
+         ✦ AUDIO
          ============================================ */
       const bgMusic = document.getElementById('bg-music');
       const audioHint = document.getElementById('audioHint');
@@ -1026,7 +1021,7 @@
       }
 
       /* ============================================
-         ✦ CINEMATIC INTRO SEQUENCE
+         ✦ INTRO SEQUENCE
          ============================================ */
       const introGate = document.getElementById('introGate');
       const introScenes = document.querySelectorAll('.intro-scene');
@@ -1128,7 +1123,7 @@
       }
 
       /* ============================================
-         ✦ LIVE TYPING HEADLINE
+         ✦ TYPING HEADLINE
          ============================================ */
       const line1Target = document.getElementById('typedLine1');
       const line2Target = document.getElementById('typedLine2');
@@ -1209,12 +1204,11 @@
       const taglineEl = document.getElementById('liveTaglineText');
       const taglinePhrases = [
         'ANONYMOUS SIGN-IN',
-        'END-TO-END HARDENED',
         '1-HOUR EPHEMERAL',
-        'FREE RASP ACTIVE',
         'MEME STICKERS',
         'VIP AVATARS',
-        'REALTIME PRESENCE'
+        'REALTIME PRESENCE',
+        'VERIFIED BADGES'
       ];
       let taglineIndex = 0;
       let taglineChar = 0;
@@ -1258,7 +1252,7 @@
         taglineEl.textContent = taglinePhrases[0];
       }
 
-      /* ---------- SCROLL PROGRESS BAR ---------- */
+      /* ---------- SCROLL PROGRESS ---------- */
       const progress = document.getElementById('scrollProgress');
       window.addEventListener('scroll', () => {
         const scrollTop = window.scrollY;
@@ -1267,7 +1261,7 @@
         progress.style.width = pct + '%';
       }, { passive: true });
 
-      /* ---------- NAVBAR SCROLL STATE ---------- */
+      /* ---------- NAVBAR ---------- */
       const navbar = document.getElementById('navbar');
       window.addEventListener('scroll', () => {
         if (window.scrollY > 40) navbar.classList.add('scrolled');
@@ -1331,7 +1325,7 @@
         }, { passive: true });
       }
 
-      /* ---------- 3D TILT (for yapora-card) ---------- */
+      /* ---------- 3D TILT (yapora-card) ---------- */
       if (!isMobile && !prefersReduced) {
         const card = document.querySelector('.yapora-card');
         const heroVisual = document.querySelector('.hero-visual');
@@ -1375,7 +1369,7 @@
         });
       }
 
-      /* ---------- SMOOTH ANCHOR SCROLLING ---------- */
+      /* ---------- SMOOTH ANCHOR ---------- */
       document.querySelectorAll('.nav-links a[href^="#"], .footer a[href^="#"]').forEach(link => {
         link.addEventListener('click', (e) => {
           const href = link.getAttribute('href');
