@@ -637,6 +637,60 @@
       *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
       .reveal, .reveal-scale, .stagger > * { opacity: 1 !important; transform: none !important; filter: none !important; }
     }
+
+    /* ============================================
+       ✦ MOBILE PERFORMANCE OPTIMIZATION
+       ============================================ */
+    @media (max-width: 768px) {
+      /* 1. Disable heavy animated gradients and blurs */
+      body::before {
+        animation: none !important;
+        background: var(--bg-deep) !important;
+      }
+      
+      .glow-orb, .morph-blob, .particle-field {
+        display: none !important;
+      }
+
+      /* 2. Disable backdrop-filter (very GPU intensive on mobile) */
+      .navbar.scrolled {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background: rgba(11, 7, 16, 0.98) !important;
+      }
+      .audio-hint {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background: var(--bg-deep) !important;
+      }
+
+      /* 3. Stop infinite floating/rotating animations */
+      .yapora-card {
+        animation: none !important;
+      }
+      .logo-icon {
+        animation: none !important;
+      }
+      .hero-visual::before, 
+      .hero-visual::after, 
+      .orbit-dot {
+        display: none !important;
+      }
+
+      /* 4. Reduce motion for entrance reveals to prevent scroll jank */
+      .reveal, .reveal-scale, .stagger > * {
+        transition-duration: 0.4s !important;
+        filter: none !important; /* Remove blur transitions */
+      }
+
+      /* 5. Speed up intro transitions on mobile */
+      .intro-scene {
+        transition: opacity 0.5s ease !important, transform 0.5s ease !important;
+      }
+      .intro-gate {
+        transition: opacity 0.5s ease !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1254,11 +1308,18 @@
 
       /* ---------- SCROLL PROGRESS ---------- */
       const progress = document.getElementById('scrollProgress');
+      let scrollTicking = false;
       window.addEventListener('scroll', () => {
-        const scrollTop = window.scrollY;
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-        progress.style.width = pct + '%';
+        if (!scrollTicking) {
+          window.requestAnimationFrame(() => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progress.style.width = pct + '%';
+            scrollTicking = false;
+          });
+          scrollTicking = true;
+        }
       }, { passive: true });
 
       /* ---------- NAVBAR ---------- */
@@ -1269,7 +1330,7 @@
       }, { passive: true });
 
       /* ---------- PARTICLES ---------- */
-      if (!prefersReduced) {
+      if (!prefersReduced && !isMobile) { // DISABLED ON MOBILE
         const field = document.getElementById('particleField');
         const count = isMobile ? 12 : 28;
         for (let i = 0; i < count; i++) {
