@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>YAPORA · talk freely · anonymous chat</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -639,56 +639,53 @@
     }
 
     /* ============================================
-       ✦ MOBILE PERFORMANCE OPTIMIZATION
+       ✦ ULTIMATE MOBILE PERFORMANCE OPTIMIZATION
        ============================================ */
     @media (max-width: 768px) {
-      /* 1. Disable heavy animated gradients and blurs */
-      body::before {
-        animation: none !important;
-        background: var(--bg-deep) !important;
+      /* KILL ALL BLURS AND HEAVY FILTERS */
+      .glow-orb, .morph-blob, .particle-field, .hero-decor, .hero-visual::before, .hero-visual::after, .orbit-dot {
+        display: none !important;
       }
       
-      .glow-orb, .morph-blob, .particle-field {
-        display: none !important;
+      body::before {
+        animation: none !important;
+        background: var(--bg-deep) !important; /* Flat background, no gradient animation */
       }
-
-      /* 2. Disable backdrop-filter (very GPU intensive on mobile) */
-      .navbar.scrolled {
+      
+      .navbar.scrolled, .audio-hint {
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
-        background: rgba(11, 7, 16, 0.98) !important;
-      }
-      .audio-hint {
-        backdrop-filter: none !important;
-        -webkit-backdrop-filter: none !important;
-        background: var(--bg-deep) !important;
+        background: #0b0710 !important; /* Solid color instead of blur */
       }
 
-      /* 3. Stop infinite floating/rotating animations */
-      .yapora-card {
+      /* KILL INFINITE ANIMATIONS */
+      .logo-icon, .yapora-card, .download-panel::before, .dev-section::before, .divider::before, .divider::after, .card-cat-glow, .feature-icon {
         animation: none !important;
-      }
-      .logo-icon {
-        animation: none !important;
-      }
-      .hero-visual::before, 
-      .hero-visual::after, 
-      .orbit-dot {
-        display: none !important;
       }
 
-      /* 4. Reduce motion for entrance reveals to prevent scroll jank */
+      /* SIMPLIFY HOVER EFFECTS (NO HEAVY SHADOWS/BLUR TRANSITIONS) */
+      .btn-primary, .btn-large, .dev-btn-instagram, .feature-card, .download-panel, .dev-section {
+        transition: transform 0.2s ease !important;
+        box-shadow: none !important; /* Remove heavy drop shadows */
+        filter: none !important;
+      }
+      .btn-primary:hover, .btn-large:hover, .dev-btn-instagram:hover, .feature-card:hover, .download-panel:hover, .dev-section:hover {
+        transform: translateY(-2px) scale(1.01) !important;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important; /* Simple shadow */
+      }
+
+      /* FASTER, SIMPLER REVEALS */
       .reveal, .reveal-scale, .stagger > * {
-        transition-duration: 0.4s !important;
-        filter: none !important; /* Remove blur transitions */
+        transition: opacity 0.4s ease, transform 0.4s ease !important;
+        filter: none !important; /* Remove blur transition */
       }
-
-      /* 5. Speed up intro transitions on mobile */
+      
+      /* SPEED UP INTRO */
       .intro-scene {
-        transition: opacity 0.5s ease !important, transform 0.5s ease !important;
+        transition: opacity 0.4s ease !important, transform 0.4s ease !important;
       }
       .intro-gate {
-        transition: opacity 0.5s ease !important;
+        transition: opacity 0.4s ease !important;
       }
     }
   </style>
@@ -1330,7 +1327,8 @@
       }, { passive: true });
 
       /* ---------- PARTICLES ---------- */
-      if (!prefersReduced && !isMobile) { // DISABLED ON MOBILE
+      // DISABLED ON MOBILE
+      if (!prefersReduced && !isMobile) {
         const field = document.getElementById('particleField');
         const count = isMobile ? 12 : 28;
         for (let i = 0; i < count; i++) {
@@ -1365,7 +1363,8 @@
       }
 
       /* ---------- PARALLAX ---------- */
-      if (!prefersReduced) {
+      // DISABLED ON MOBILE to save CPU
+      if (!prefersReduced && !isMobile) {
         const parallaxEls = document.querySelectorAll('[data-parallax]');
         let ticking = false;
         window.addEventListener('scroll', () => {
